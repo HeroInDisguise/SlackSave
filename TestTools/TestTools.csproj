@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestTools\FileReader.cs" />
-    <Compile Include="TestTools\JsonSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

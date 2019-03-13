@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace BPSSlack.JsonSlackObjects
 {/// <summary>
@@ -6,14 +7,32 @@ namespace BPSSlack.JsonSlackObjects
 /// </summary>
     public class ContainerSlackConversationList
     {
-        public bool ok { get; }
-        public string error { get; set; }
+        [JsonProperty("ok")]
+        public bool Ok { get; set; }
+        [JsonProperty("error")]
+        public string Error { get; set; }
+        [JsonProperty("ims")]
         public List<Im> Ims { get; set; }
     }
      
     public class Im
     {
-        public string id { get; set; }
-        public string user { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("created")]
+        public long Created { get; set; }
+
+        [JsonProperty("is_im")]
+        public bool IsIm { get; set; }
+
+        [JsonProperty("is_org_shared")]
+        public bool IsOrgShared { get; set; }
+
+        [JsonProperty("user")]
+        public string User { get; set; }
+
+        [JsonProperty("is_user_deleted")]
+        public bool IsUserDeleted { get; set; }
     }
 }

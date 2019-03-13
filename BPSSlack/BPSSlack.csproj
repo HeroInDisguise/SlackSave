@@ -48,10 +48,6 @@
     <Compile Include="JsonSlackObjects\ContainerSlackIncomingMessage.cs" />
     <Compile Include="JsonSlackObjects\ContainerSlackChannelList.cs" />
     <Compile Include="JsonSlackObjects\ContainerSlackUserList.cs" />
-    <Compile Include="JsonTeam3Objects\ContainerTeam3ConversationList.cs" />
-    <Compile Include="JsonTeam3Objects\ContainerTeam3UserList.cs" />
-    <Compile Include="JsonTeam3Objects\ContainerTeam3ChannelList.cs" />
-    <Compile Include="JsonTeam3Objects\ContainerTeam3IncomingMessage.cs" />
     <Compile Include="T3SlackInternalFunctions.cs" />
     <Compile Include="T3SlackUserFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

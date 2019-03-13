@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace BPSSlack.JsonSlackObjects
  
@@ -7,26 +9,68 @@ namespace BPSSlack.JsonSlackObjects
 /// </summary>
     public class ContainerSlackIncomingMessage
     {
-        public string ok { get; set; }
-        public string error { get; set; }
-        public List<Message> messages { get; set; }
+        [JsonProperty("ok")]
+        public bool Ok { get; set; }
+        [JsonProperty("error")]
+        public string Error { get; set; }
+
+        [JsonProperty("messages")]
+        public List<Message> Messages { get; set; }
+
+        [JsonProperty("has_more")]
+        public bool HasMore { get; set; }
+
+        [JsonProperty("pin_count")]
+        public long PinCount { get; set; }
+
+        [JsonProperty("response_metadata")]
+        public ResponseMetadata ResponseMetadata { get; set; }
     }
 
     public class Message
     {
-        public string type { get; set; }
-        public string text { get; set; }
-        public string user { get; set; }
-        public string ts { get; set; }
-        public List<Attachments> attachments { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("user")]
+        public string User { get; set; }
+
+        [JsonProperty("text")]
+        public string Text { get; set; }
+
+        [JsonProperty("ts")]
+        public string Ts { get; set; }
+
+        [JsonProperty("attachments", NullValueHandling = NullValueHandling.Ignore)]
+        public List<Attachment> Attachments { get; set; }
     }
 
-    public class Attachments
+    public class Attachment
     {
-        public string text { get; set; }
-        public string thumb_url { get; set; }
-        public string thumb_width { get; set; }
-        public string thumb_height { get; set; }
-        public string id { get; set; }
-    }    
+        [JsonProperty("service_name")]
+        public string ServiceName { get; set; }
+
+        [JsonProperty("text")]
+        public string Text { get; set; }
+
+        [JsonProperty("fallback")]
+        public string Fallback { get; set; }
+
+        [JsonProperty("thumb_url")]
+        public Uri ThumbUrl { get; set; }
+
+        [JsonProperty("thumb_width")]
+        public long ThumbWidth { get; set; }
+
+        [JsonProperty("thumb_height")]
+        public long ThumbHeight { get; set; }
+
+        [JsonProperty("id")]
+        public long Id { get; set; }
+    }
+    public partial class ResponseMetadata
+    {
+        [JsonProperty("next_cursor")]
+        public string NextCursor { get; set; }
+    }
 }

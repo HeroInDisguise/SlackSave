@@ -1,5 +1,6 @@
 ﻿using BPSSlack.JsonSlackObjects;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -36,6 +37,13 @@ namespace BPSSlack
 
                     var response = await Client.PostAsync(requestUri: uri, content: content);
                     var isValid = response.IsSuccessStatusCode;
+                    string answerContent = await response.Content.ReadAsStringAsync();
+                    var responseContent = JsonConvert.DeserializeObject<ContainerSlackIncomingMessage>(value: answerContent);
+
+                    if (!responseContent.Ok)
+                    {
+                        throw new Exception(responseContent.Error);
+                    }
                     return isValid;
                 }      
             }
@@ -48,6 +56,14 @@ namespace BPSSlack
 
                     var response = await Client.PostAsync(requestUri: uri, content: content);
                     var isValid = response.IsSuccessStatusCode;
+                    string answerContent = await response.Content.ReadAsStringAsync();
+                    var responseContent = JsonConvert.DeserializeObject<ContainerSlackIncomingMessage>(value: answerContent);
+
+                    if (!responseContent.Ok)
+                    {
+                        throw new Exception(responseContent.Error);
+                    }
+
                     return isValid;
                 }
             }
@@ -63,12 +79,17 @@ namespace BPSSlack
             var content = T3SlackInternalFunctions.CreateMessageContent(token: _token);
             using (var Client = new HttpClient())
             {
-                var response = await Client.PostAsync(requestUri: uri, content: content);
-                var isValid = response.IsSuccessStatusCode;
-                string answerContent = await response.Content.ReadAsStringAsync();
-                var fileResponse = JsonConvert.DeserializeObject<ContainerSlackUserList>(value: answerContent);
-                return fileResponse;
-            }
+                 var response = await Client.PostAsync(requestUri: uri, content: content);
+                 string answerContent = await response.Content.ReadAsStringAsync();
+                 var responseContent = JsonConvert.DeserializeObject<ContainerSlackUserList>(value: answerContent);
+
+                 if (!responseContent.Ok)
+                 {
+                     throw new Exception(responseContent.Error);
+                 }
+                
+                 return responseContent;
+            }      
         }
         /// <summary>
         /// Funktion um Channelliste abzurufen
@@ -82,10 +103,15 @@ namespace BPSSlack
             using (var Client = new HttpClient())
             {
                 var response = await Client.PostAsync(requestUri: uri, content: content);
-                var isValid = response.IsSuccessStatusCode;
                 string answerContent = await response.Content.ReadAsStringAsync();
-                var fileResponse = JsonConvert.DeserializeObject<ContainerSlackChannelList>(value: answerContent);
-                return fileResponse;
+                var responseContent = JsonConvert.DeserializeObject<ContainerSlackChannelList>(value: answerContent);
+
+                if (!responseContent.Ok)
+                {
+                    throw new Exception(responseContent.Error);
+                }
+
+                return responseContent;
             }
         }
         /// <summary>
@@ -102,10 +128,15 @@ namespace BPSSlack
             using (var Client = new HttpClient())
             {
                 var response = await Client.PostAsync(requestUri: uri, content: content);
-                var isValid = response.IsSuccessStatusCode;
                 string answerContent = await response.Content.ReadAsStringAsync();
-                var fileResponse = JsonConvert.DeserializeObject<ContainerSlackIncomingMessage>(value: answerContent);
-                return fileResponse;
+                var responseContent = JsonConvert.DeserializeObject<ContainerSlackIncomingMessage>(value: answerContent);
+
+                if (!responseContent.Ok)
+                {
+                    throw new Exception(responseContent.Error);
+                }
+
+                return responseContent;
             }
         }
         /// <summary>
@@ -120,10 +151,15 @@ namespace BPSSlack
             using (var Client = new HttpClient())
             {
                 var response = await Client.PostAsync(requestUri: uri, content: content);
-                var isValid = response.IsSuccessStatusCode;
                 string answerContent = await response.Content.ReadAsStringAsync();
-                var fileResponse = JsonConvert.DeserializeObject<ContainerSlackConversationList>(value: answerContent);
-                return fileResponse;
+                var responseContent = JsonConvert.DeserializeObject<ContainerSlackConversationList>(value: answerContent);
+
+                if (!responseContent.Ok)
+                {
+                    throw new Exception(responseContent.Error);
+                }
+
+                return responseContent;
             }
         }
     }

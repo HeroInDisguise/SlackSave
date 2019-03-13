@@ -16,7 +16,7 @@ namespace BPSSlack
         internal  static MultipartFormDataContent CreateMessageContent(string token)
         {            
             var content = new MultipartFormDataContent();
-            content.Add(new StringContent(token), "token");            
+            content.Add(new StringContent(token), "token");
             return content;
         }
 
@@ -48,13 +48,13 @@ namespace BPSSlack
         /// <returns></returns>
         internal static MultipartFormDataContent CreateMessageContent(string token, string channel, string filepath, FileStream attachment, string message = null)
         {
-            var file = new StreamContent(attachment);            
+            var file = new StreamContent(attachment);
             var content = new MultipartFormDataContent();
             content.Add(file, "file", Path.GetFileName(filepath));
             content.Add(new StringContent(token), "token");
             content.Add(new StringContent(channel), "channels");
             if (message != null)
-                content.Add(new StringContent(message), "initial_comment");            
+                content.Add(new StringContent(message), "initial_comment");
             return content;
         }
 
